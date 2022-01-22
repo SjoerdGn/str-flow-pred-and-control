@@ -1,4 +1,4 @@
-from physics import rectangular_weir
+from .physics import rectangular_weir
 
 
 def value_curve_farmer_1(discharge: float) -> float:

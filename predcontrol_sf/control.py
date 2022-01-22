@@ -18,7 +18,6 @@ class User:
 class Control:
     def __init__(self, users: list):
         self.users = users
-        pass
 
     def return_combined_value(self, level_river, discharges, levels_weirs):
         value = 0
