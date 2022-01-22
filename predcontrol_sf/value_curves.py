@@ -48,8 +48,9 @@ def discharge_curve_farmer_1(
         g (float, optional): Gravitational acceleration. Defaults to 9.8.
 
     Returns:
-        float: [description]
+        float: discharge over weir
     """
 
     level_over_weir = level_river - level_weir
     discharge = rectangular_weir(level_over_weir, width_weir, g=g, cd=cd)
+    return discharge
