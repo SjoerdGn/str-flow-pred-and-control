@@ -1,4 +1,6 @@
 from .physics import rectangular_weir
+from .data import handle_float_or_array_like, check_non_negative_discharge, return_discharge
+import numpy as np
 
 
 def value_curve_farmer_1(discharge: float) -> float:
@@ -11,10 +13,15 @@ def value_curve_farmer_1(discharge: float) -> float:
     Returns:
         float: value (ficticious) of said discharge
     """
-    if discharge > 10:
-        return 60 - discharge * 4
-    else:
-        return 2 * discharge
+    d = handle_float_or_array_like(discharge)
+    check_non_negative_discharge(d)    
+
+    value = np.ones_like(d)
+    value[d <= 10] = 2 * d[d <= 10]
+    value[d > 10] = 60 - d[d > 10] * 4
+
+    return return_discharge(discharge, value)
+    
 
 
 def value_curve_farmer_2(discharge: float) -> float:
@@ -27,12 +34,14 @@ def value_curve_farmer_2(discharge: float) -> float:
     Returns:
         float: value (ficticious) of said discharge
     """
-    if discharge < 15:
-        return discharge ** 1.8 / 3
-    elif discharge >= 15 and discharge <= 30:
-        return (30 - discharge) ** 1.8 / 3
-    else:
-        return -30
+    d = handle_float_or_array_like(discharge)
+    check_non_negative_discharge(d)    
+
+    value = np.ones_like(d)
+    value[d <= 15] = d[d <= 15] ** 1.8 / 3
+    value[np.logical_and(d > 15, d <= 30)] = (30 - d[np.logical_and(d > 15, d <= 30)]) ** 1.8 / 3
+    value[d > 30] = -5
+    return return_discharge(discharge, value)
 
 
 def discharge_curve_farmer_1(

@@ -10,5 +10,6 @@ def rectangular_weir(h: float, b: float, g=9.80, cd=1) -> float:
     Returns:
         float: Discharge over weir
     """
+    # TODO: h < 0 = 0
     q = 2 / 3 * cd * b * (2 * g) ** 0.5 * h ** 1.5
     return q
