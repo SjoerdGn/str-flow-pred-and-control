@@ -59,7 +59,13 @@ def discharge_curve_farmer_1(
     Returns:
         float: discharge over weir
     """
-
-    level_over_weir = level_river - level_weir
+    lr = handle_float_or_array_like(level_river)
+    lw = handle_float_or_array_like(level_weir)
+    
+    level_over_weir = lr - lw
     discharge = rectangular_weir(level_over_weir, width_weir, g=g, cd=cd)
+    discharge[np.iscomplex(discharge)] = 0.
+    discharge = discharge.real
+    if type(lr) == int or float or len(discharge) == 1:
+        discharge = discharge[0]
     return discharge
