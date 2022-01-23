@@ -1,27 +1,29 @@
 
 
-def value_curve_farmer_1(discharge: float) -> float:
-    if discharge > 10:
-        return 60-discharge*4
-    else:
-        return 2*discharge
-
-def value_curve_farmer_2(discharge: float) -> float:
-    if discharge < 15:
-        return discharge ** 1.8 / 3
-    elif discharge >= 15 and discharge <= 30:
-        return (30-discharge) ** 1.8 / 3
-    else:
-        return -30
-
 class User:
-    def __init__(self, value_curve):
+    def __init__(self, value_curve, discharge_curve=None):
         self.value_curve = value_curve
+        self.discharge_curve = discharge_curve
+    
+    def _calculate_discharge(self, discharge: float, level_river: float, level_weir: float) -> float:
+        if self.discharge_curve is not None:
+            discharge = self.discharge_curve(level_river, level_weir)
+        return discharge
 
-    def return_value(self, discharge):
+    def return_value(self, discharge: float, level_river: float, level_weir: float) -> float:
+        discharge = self._calculate_discharge(discharge, level_river, level_weir)
         return self.value_curve(discharge)
 
+
 class Control:
-    pass
+    def __init__(self, users: list):
+        self.users = users
+
+    def return_combined_value(self, level_river, discharges, levels_weirs):
+        value = 0
+        for user, discharge, level_weir in zip(self.users, discharges, levels_weirs):
+            value += user.return_value(discharge, level_river, level_weir)
+        return value
 
 
+# every week the thing is put in place
