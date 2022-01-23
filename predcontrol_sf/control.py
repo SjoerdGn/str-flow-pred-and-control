@@ -1,4 +1,5 @@
 
+import numpy as np
 
 class User:
     def __init__(self, value_curve, discharge_curve=None):
@@ -24,6 +25,11 @@ class Control:
         for user, discharge, level_weir in zip(self.users, discharges, levels_weirs):
             value += user.return_value(discharge, level_river, level_weir)
         return value
+
+
+    def return_total_value(self, level_river, discharges, levels_weirs):
+        combined_value = self.return_combined_value(level_river, discharges, levels_weirs)
+        return np.sum(combined_value)
 
 
 # every week the thing is put in place
