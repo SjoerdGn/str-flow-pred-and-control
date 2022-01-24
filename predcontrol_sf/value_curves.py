@@ -22,7 +22,7 @@ def value_curve_farmer_1(discharge: float) -> float:
 
     value = np.ones_like(d)
     value[d <= 10] = 2 * d[d <= 10]
-    value[d > 10] = 60 - d[d > 10] * 1.5
+    value[d > 10] = 35 - d[d > 10] * 1.5
 
     return return_discharge(discharge, value)
 
@@ -41,10 +41,10 @@ def value_curve_farmer_2(discharge: float) -> float:
     check_non_negative_discharge(d)
 
     value = np.ones_like(d)
-    value[d <= 15] = d[d <= 15] ** 1.6 / 3
+    value[d <= 15] = d[d <= 15] ** 1.5 / 3
     value[np.logical_and(d > 15, d <= 30)] = (
         30 - d[np.logical_and(d > 15, d <= 30)]
-    ) ** 1.6 / 3
+    ) ** 1.5 / 3
     value[d > 30] = -5
     return return_discharge(discharge, value)
 

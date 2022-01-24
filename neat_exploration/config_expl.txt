@@ -7,12 +7,12 @@ reset_on_extinction   = True
 [DefaultGenome]
 # node activation options
 activation_default      = clamped
-activation_mutate_rate  = 0.015
+activation_mutate_rate  = 0.01
 activation_options      = clamped
 
 # node aggregation options
 aggregation_default     = sum
-aggregation_mutate_rate = 0.015
+aggregation_mutate_rate = 0.01
 aggregation_options     = sum
 
 # node bias options
@@ -40,11 +40,11 @@ feed_forward            = True
 initial_connection      = full
 
 # node add/remove rates
-node_add_prob           = 0.2
-node_delete_prob        = 0.2
+node_add_prob           = 0.3
+node_delete_prob        = 0.3
 
 # network parameters
-num_hidden              = 0
+num_hidden              = 4
 num_inputs              = 2
 num_outputs             = 2
 
@@ -75,5 +75,5 @@ max_stagnation       = 20
 species_elitism      = 2
 
 [DefaultReproduction]
-elitism            = 3
-survival_threshold = 0.3
+elitism            = 1
+survival_threshold = 0.4
