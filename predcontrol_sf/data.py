@@ -5,6 +5,7 @@ import numpy as np
 @dataclass
 class DataCase:
     discharge: pd.DataFrame
+    # TODO: implement data for case object
 
 def handle_float_or_array_like(x):
     if type(x) == int or float:
