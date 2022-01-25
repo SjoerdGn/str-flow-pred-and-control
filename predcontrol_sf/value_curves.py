@@ -109,7 +109,7 @@ def penalty_curve_low_discharge(discharges_river, discharges_users):
     du = handle_float_or_array_like(discharges_users)
 
     penalties = np.zeros_like(dr)
-    penalties[np.logical_and(dr < 100, du > 20)] = 20
+    penalties[np.logical_and(dr < 120, du > 14)] = 20
     if type(discharges_river) == int or float or len(penalties) == 1:
         penalties = penalties[0]
     return penalties
